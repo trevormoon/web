@@ -770,7 +770,7 @@
         _.VERSION = "1.6.0-Webflow";
         var breaker = {};
         var ArrayProto = Array.prototype, ObjProto = Object.prototype, FuncProto = Function.prototype;
-        var push = ArrayProto.push, slice = ArrayProto.slice, concat = ArrayProto.concat, toString = ObjProto.toString, hasOwnProperty2 = ObjProto.hasOwnProperty;
+        var push = ArrayProto.push, slice = ArrayProto.slice, concat = ArrayProto.concat, toString = ObjProto.toString, hasOwnProperty = ObjProto.hasOwnProperty;
         var nativeForEach = ArrayProto.forEach, nativeMap = ArrayProto.map, nativeReduce = ArrayProto.reduce, nativeReduceRight = ArrayProto.reduceRight, nativeFilter = ArrayProto.filter, nativeEvery = ArrayProto.every, nativeSome = ArrayProto.some, nativeIndexOf = ArrayProto.indexOf, nativeLastIndexOf = ArrayProto.lastIndexOf, nativeIsArray = Array.isArray, nativeKeys = Object.keys, nativeBind = FuncProto.bind;
         var each = _.each = _.forEach = function(obj, iterator, context) {
           if (obj == null)
@@ -922,7 +922,7 @@
           return keys;
         };
         _.has = function(obj, key) {
-          return hasOwnProperty2.call(obj, key);
+          return hasOwnProperty.call(obj, key);
         };
         _.isObject = function(obj) {
           return obj === Object(obj);
@@ -1564,13 +1564,13 @@
   // node_modules/@babel/runtime/helpers/typeof.js
   var require_typeof = __commonJS({
     "node_modules/@babel/runtime/helpers/typeof.js"(exports, module) {
-      function _typeof(obj) {
+      function _typeof(o) {
         "@babel/helpers - typeof";
-        return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(obj2) {
-          return typeof obj2;
-        } : function(obj2) {
-          return obj2 && "function" == typeof Symbol && obj2.constructor === Symbol && obj2 !== Symbol.prototype ? "symbol" : typeof obj2;
-        }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(obj);
+        return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+          return typeof o2;
+        } : function(o2) {
+          return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
+        }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
       }
       module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
     }
@@ -1580,45 +1580,33 @@
   var require_interopRequireWildcard = __commonJS({
     "node_modules/@babel/runtime/helpers/interopRequireWildcard.js"(exports, module) {
       var _typeof = require_typeof()["default"];
-      function _getRequireWildcardCache(nodeInterop) {
-        if (typeof WeakMap !== "function")
+      function _getRequireWildcardCache(e) {
+        if ("function" != typeof WeakMap)
           return null;
-        var cacheBabelInterop = /* @__PURE__ */ new WeakMap();
-        var cacheNodeInterop = /* @__PURE__ */ new WeakMap();
-        return (_getRequireWildcardCache = function _getRequireWildcardCache2(nodeInterop2) {
-          return nodeInterop2 ? cacheNodeInterop : cacheBabelInterop;
-        })(nodeInterop);
+        var r = /* @__PURE__ */ new WeakMap(), t = /* @__PURE__ */ new WeakMap();
+        return (_getRequireWildcardCache = function _getRequireWildcardCache2(e2) {
+          return e2 ? t : r;
+        })(e);
       }
-      function _interopRequireWildcard(obj, nodeInterop) {
-        if (!nodeInterop && obj && obj.__esModule) {
-          return obj;
-        }
-        if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {
+      function _interopRequireWildcard(e, r) {
+        if (!r && e && e.__esModule)
+          return e;
+        if (null === e || "object" != _typeof(e) && "function" != typeof e)
           return {
-            "default": obj
+            "default": e
           };
-        }
-        var cache = _getRequireWildcardCache(nodeInterop);
-        if (cache && cache.has(obj)) {
-          return cache.get(obj);
-        }
-        var newObj = {};
-        var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
-        for (var key in obj) {
-          if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
-            var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
-            if (desc && (desc.get || desc.set)) {
-              Object.defineProperty(newObj, key, desc);
-            } else {
-              newObj[key] = obj[key];
-            }
+        var t = _getRequireWildcardCache(r);
+        if (t && t.has(e))
+          return t.get(e);
+        var n = {
+          __proto__: null
+        }, a = Object.defineProperty && Object.getOwnPropertyDescriptor;
+        for (var u in e)
+          if ("default" !== u && {}.hasOwnProperty.call(e, u)) {
+            var i = a ? Object.getOwnPropertyDescriptor(e, u) : null;
+            i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u];
           }
-        }
-        newObj["default"] = obj;
-        if (cache) {
-          cache.set(obj, newObj);
-        }
-        return newObj;
+        return n["default"] = e, t && t.set(e, n), n;
       }
       module.exports = _interopRequireWildcard, module.exports.__esModule = true, module.exports["default"] = module.exports;
     }
@@ -2027,9 +2015,9 @@
     "node_modules/core-js/internals/has-own-property.js"(exports, module) {
       var uncurryThis = require_function_uncurry_this();
       var toObject = require_to_object();
-      var hasOwnProperty2 = uncurryThis({}.hasOwnProperty);
+      var hasOwnProperty = uncurryThis({}.hasOwnProperty);
       module.exports = Object.hasOwn || function hasOwn(it, key) {
-        return hasOwnProperty2(toObject(it), key);
+        return hasOwnProperty(toObject(it), key);
       };
     }
   });
@@ -2887,11 +2875,11 @@
     "node_modules/lodash/_getRawTag.js"(exports, module) {
       var Symbol2 = require_Symbol();
       var objectProto = Object.prototype;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       var nativeObjectToString = objectProto.toString;
       var symToStringTag = Symbol2 ? Symbol2.toStringTag : void 0;
       function getRawTag(value) {
-        var isOwn = hasOwnProperty2.call(value, symToStringTag), tag = value[symToStringTag];
+        var isOwn = hasOwnProperty.call(value, symToStringTag), tag = value[symToStringTag];
         try {
           value[symToStringTag] = void 0;
           var unmasked = true;
@@ -2983,7 +2971,7 @@
       var funcProto = Function.prototype;
       var objectProto = Object.prototype;
       var funcToString = funcProto.toString;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       var objectCtorString = funcToString.call(Object);
       function isPlainObject(value) {
         if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
@@ -2993,7 +2981,7 @@
         if (proto === null) {
           return true;
         }
-        var Ctor = hasOwnProperty2.call(proto, "constructor") && proto.constructor;
+        var Ctor = hasOwnProperty.call(proto, "constructor") && proto.constructor;
         return typeof Ctor == "function" && Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString;
       }
       module.exports = isPlainObject;
@@ -3878,7 +3866,7 @@
         }
         return keys;
       }
-      var hasOwnProperty2 = {}.hasOwnProperty;
+      var hasOwnProperty = {}.hasOwnProperty;
       function clone(obj) {
         if (Array.isArray(obj))
           return obj.slice();
@@ -4045,7 +4033,7 @@
         var omitList = Array.isArray(attrs) ? attrs : [attrs];
         var fDoSomething = false;
         for (var i = 0; i < omitList.length; i++) {
-          if (hasOwnProperty2.call(obj, omitList[i])) {
+          if (hasOwnProperty.call(obj, omitList[i])) {
             fDoSomething = true;
             break;
           }
@@ -4488,9 +4476,9 @@
       var funcProto = Function.prototype;
       var objectProto = Object.prototype;
       var funcToString = funcProto.toString;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       var reIsNative = RegExp(
-        "^" + funcToString.call(hasOwnProperty2).replace(reRegExpChar, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$"
+        "^" + funcToString.call(hasOwnProperty).replace(reRegExpChar, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$"
       );
       function baseIsNative(value) {
         if (!isObject(value) || isMasked(value)) {
@@ -4575,14 +4563,14 @@
       var nativeCreate = require_nativeCreate();
       var HASH_UNDEFINED = "__lodash_hash_undefined__";
       var objectProto = Object.prototype;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       function hashGet(key) {
         var data = this.__data__;
         if (nativeCreate) {
           var result = data[key];
           return result === HASH_UNDEFINED ? void 0 : result;
         }
-        return hasOwnProperty2.call(data, key) ? data[key] : void 0;
+        return hasOwnProperty.call(data, key) ? data[key] : void 0;
       }
       module.exports = hashGet;
     }
@@ -4593,10 +4581,10 @@
     "node_modules/lodash/_hashHas.js"(exports, module) {
       var nativeCreate = require_nativeCreate();
       var objectProto = Object.prototype;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       function hashHas(key) {
         var data = this.__data__;
-        return nativeCreate ? data[key] !== void 0 : hasOwnProperty2.call(data, key);
+        return nativeCreate ? data[key] !== void 0 : hasOwnProperty.call(data, key);
       }
       module.exports = hashHas;
     }
@@ -5154,12 +5142,12 @@
       var baseIsArguments = require_baseIsArguments();
       var isObjectLike = require_isObjectLike();
       var objectProto = Object.prototype;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       var propertyIsEnumerable = objectProto.propertyIsEnumerable;
       var isArguments = baseIsArguments(function() {
         return arguments;
       }()) ? baseIsArguments : function(value) {
-        return isObjectLike(value) && hasOwnProperty2.call(value, "callee") && !propertyIsEnumerable.call(value, "callee");
+        return isObjectLike(value) && hasOwnProperty.call(value, "callee") && !propertyIsEnumerable.call(value, "callee");
       };
       module.exports = isArguments;
     }
@@ -5311,11 +5299,11 @@
       var isIndex = require_isIndex();
       var isTypedArray = require_isTypedArray();
       var objectProto = Object.prototype;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       function arrayLikeKeys(value, inherited) {
         var isArr = isArray(value), isArg = !isArr && isArguments(value), isBuff = !isArr && !isArg && isBuffer(value), isType = !isArr && !isArg && !isBuff && isTypedArray(value), skipIndexes = isArr || isArg || isBuff || isType, result = skipIndexes ? baseTimes(value.length, String) : [], length = result.length;
         for (var key in value) {
-          if ((inherited || hasOwnProperty2.call(value, key)) && !(skipIndexes && // Safari 9 has enumerable `arguments.length` in strict mode.
+          if ((inherited || hasOwnProperty.call(value, key)) && !(skipIndexes && // Safari 9 has enumerable `arguments.length` in strict mode.
           (key == "length" || // Node.js 0.10 has enumerable non-index properties on buffers.
           isBuff && (key == "offset" || key == "parent") || // PhantomJS 2 has enumerable non-index properties on typed arrays.
           isType && (key == "buffer" || key == "byteLength" || key == "byteOffset") || // Skip index properties.
@@ -5356,14 +5344,14 @@
       var isPrototype = require_isPrototype();
       var nativeKeys = require_nativeKeys();
       var objectProto = Object.prototype;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       function baseKeys(object) {
         if (!isPrototype(object)) {
           return nativeKeys(object);
         }
         var result = [];
         for (var key in Object(object)) {
-          if (hasOwnProperty2.call(object, key) && key != "constructor") {
+          if (hasOwnProperty.call(object, key) && key != "constructor") {
             result.push(key);
           }
         }
@@ -5417,7 +5405,7 @@
       var getAllKeys = require_getAllKeys();
       var COMPARE_PARTIAL_FLAG = 1;
       var objectProto = Object.prototype;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
         var isPartial = bitmask & COMPARE_PARTIAL_FLAG, objProps = getAllKeys(object), objLength = objProps.length, othProps = getAllKeys(other), othLength = othProps.length;
         if (objLength != othLength && !isPartial) {
@@ -5426,7 +5414,7 @@
         var index = objLength;
         while (index--) {
           var key = objProps[index];
-          if (!(isPartial ? key in other : hasOwnProperty2.call(other, key))) {
+          if (!(isPartial ? key in other : hasOwnProperty.call(other, key))) {
             return false;
           }
         }
@@ -5567,7 +5555,7 @@
       var arrayTag = "[object Array]";
       var objectTag = "[object Object]";
       var objectProto = Object.prototype;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
         var objIsArr = isArray(object), othIsArr = isArray(other), objTag = objIsArr ? arrayTag : getTag(object), othTag = othIsArr ? arrayTag : getTag(other);
         objTag = objTag == argsTag ? objectTag : objTag;
@@ -5585,7 +5573,7 @@
           return objIsArr || isTypedArray(object) ? equalArrays(object, other, bitmask, customizer, equalFunc, stack) : equalByTag(object, other, objTag, bitmask, customizer, equalFunc, stack);
         }
         if (!(bitmask & COMPARE_PARTIAL_FLAG)) {
-          var objIsWrapped = objIsObj && hasOwnProperty2.call(object, "__wrapped__"), othIsWrapped = othIsObj && hasOwnProperty2.call(other, "__wrapped__");
+          var objIsWrapped = objIsObj && hasOwnProperty.call(object, "__wrapped__"), othIsWrapped = othIsObj && hasOwnProperty.call(other, "__wrapped__");
           if (objIsWrapped || othIsWrapped) {
             var objUnwrapped = objIsWrapped ? object.value() : object, othUnwrapped = othIsWrapped ? other.value() : other;
             stack || (stack = new Stack());
@@ -7626,21 +7614,21 @@
       return false;
     }
     for (let i = 0; i < keysA.length; i++) {
-      if (
+      if (!Object.hasOwn(
+        objB,
         // @ts-expect-error - TS2345 - Argument of type 'string | undefined' is not assignable to parameter of type 'PropertyKey'.
-        !hasOwnProperty.call(objB, keysA[i]) || // @ts-expect-error - TS2538 - Type 'undefined' cannot be used as an index type. | TS2538 - Type 'undefined' cannot be used as an index type.
-        !is(objA[keysA[i]], objB[keysA[i]])
-      ) {
+        keysA[i]
+      ) || // @ts-expect-error - TS2538 - Type 'undefined' cannot be used as an index type. | TS2538 - Type 'undefined' cannot be used as an index type.
+      !is(objA[keysA[i]], objB[keysA[i]])) {
         return false;
       }
     }
     return true;
   }
-  var hasOwnProperty, shallowEqual_default;
+  var shallowEqual_default;
   var init_shallowEqual = __esm({
     "packages/systems/ix2/shared/logic/shallowEqual.ts"() {
       "use strict";
-      hasOwnProperty = Object.prototype.hasOwnProperty;
       shallowEqual_default = shallowEqual;
     }
   });
@@ -9253,10 +9241,10 @@
       var baseAssignValue = require_baseAssignValue();
       var eq = require_eq();
       var objectProto = Object.prototype;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       function assignValue(object, key, value) {
         var objValue = object[key];
-        if (!(hasOwnProperty2.call(object, key) && eq(objValue, value)) || value === void 0 && !(key in object)) {
+        if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) || value === void 0 && !(key in object)) {
           baseAssignValue(object, key, value);
         }
       }
@@ -9362,14 +9350,14 @@
       var isPrototype = require_isPrototype();
       var nativeKeysIn = require_nativeKeysIn();
       var objectProto = Object.prototype;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       function baseKeysIn(object) {
         if (!isObject(object)) {
           return nativeKeysIn(object);
         }
         var isProto = isPrototype(object), result = [];
         for (var key in object) {
-          if (!(key == "constructor" && (isProto || !hasOwnProperty2.call(object, key)))) {
+          if (!(key == "constructor" && (isProto || !hasOwnProperty.call(object, key)))) {
             result.push(key);
           }
         }
@@ -9455,7 +9443,7 @@
       var mapTag = "[object Map]";
       var setTag = "[object Set]";
       var objectProto = Object.prototype;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       function isEmpty2(value) {
         if (value == null) {
           return true;
@@ -9471,7 +9459,7 @@
           return !baseKeys(value).length;
         }
         for (var key in value) {
-          if (hasOwnProperty2.call(value, key)) {
+          if (hasOwnProperty.call(value, key)) {
             return false;
           }
         }
@@ -10288,9 +10276,9 @@
     "node_modules/lodash/_getFuncName.js"(exports, module) {
       var realNames = require_realNames();
       var objectProto = Object.prototype;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       function getFuncName(func) {
-        var result = func.name + "", array = realNames[result], length = hasOwnProperty2.call(realNames, result) ? array.length : 0;
+        var result = func.name + "", array = realNames[result], length = hasOwnProperty.call(realNames, result) ? array.length : 0;
         while (length--) {
           var data = array[length], otherFunc = data.func;
           if (otherFunc == null || otherFunc == func) {
@@ -10369,13 +10357,13 @@
       var isObjectLike = require_isObjectLike();
       var wrapperClone = require_wrapperClone();
       var objectProto = Object.prototype;
-      var hasOwnProperty2 = objectProto.hasOwnProperty;
+      var hasOwnProperty = objectProto.hasOwnProperty;
       function lodash(value) {
         if (isObjectLike(value) && !isArray(value) && !(value instanceof LazyWrapper)) {
           if (value instanceof LodashWrapper) {
             return value;
           }
-          if (hasOwnProperty2.call(value, "__wrapped__")) {
+          if (hasOwnProperty.call(value, "__wrapped__")) {
             return wrapperClone(value);
           }
         }
@@ -14002,5 +13990,5 @@ timm/lib/timm.js:
  * Webflow: Interactions 2.0: Init
  */
 Webflow.require('ix2').init(
-{"events":{"e":{"id":"e","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-2"}},"mediaQueries":["main","medium","small","tiny"],"target":{"appliesTo":"ELEMENT","styleBlockIds":[],"id":"662db00222965ffd833806ba|cafe0045-d304-79d9-8f68-af3adaed06e9"},"config":{"loop":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536793802829},"e-3":{"id":"e-3","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-4"}},"mediaQueries":["main","medium","small","tiny"],"target":{"appliesTo":"ELEMENT","styleBlockIds":[],"id":"662db00222965ffd833806ba|88086931-0bbf-a2f5-1fc3-58d79ba19b7e"},"config":{"loop":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536793894111},"e-5":{"id":"e-5","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-6"}},"mediaQueries":["main","medium","small","tiny"],"target":{"appliesTo":"ELEMENT","styleBlockIds":[],"id":"662db00222965ffd833806ba|4593c4b7-56e8-060a-be57-648b0e08fc65"},"config":{"loop":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536794011541},"e-7":{"id":"e-7","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-8"}},"mediaQueries":["main","medium","small","tiny"],"target":{"appliesTo":"ELEMENT","styleBlockIds":[],"id":"662db00222965ffd833806ba|d79d0682-95d0-be91-6539-b82f492963f4"},"config":{"loop":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536794026102},"e-9":{"id":"e-9","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-10"}},"mediaQueries":["main","medium","small","tiny"],"target":{"appliesTo":"ELEMENT","styleBlockIds":[],"id":"662db00222965ffd833806ba|0585a81c-ee42-8b56-bc8e-bd582946320a"},"config":{"loop":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536794034018},"e-11":{"id":"e-11","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-12"}},"mediaQueries":["main","medium","small","tiny"],"target":{"appliesTo":"ELEMENT","styleBlockIds":[],"id":"662db00222965ffd833806ba|23f92271-dba9-fb12-00d3-758ef4d10fb2"},"config":{"loop":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536794055044},"e-13":{"id":"e-13","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-14"}},"mediaQueries":["main","medium","small","tiny"],"target":{"appliesTo":"ELEMENT","styleBlockIds":[],"id":"662db00222965ffd833806ba|b126983d-9126-fc06-c81d-1318685e2add"},"config":{"loop":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536794067483},"e-15":{"id":"e-15","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-16"}},"mediaQueries":["main","medium","small","tiny"],"target":{"appliesTo":"ELEMENT","styleBlockIds":[],"id":"662db00222965ffd833806ba|376e2a1f-ec70-0dab-11ea-b1863101e37b"},"config":{"loop":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536794094344},"e-17":{"id":"e-17","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-18"}},"mediaQueries":["main","medium","small","tiny"],"target":{"appliesTo":"ELEMENT","styleBlockIds":[],"id":"662db00222965ffd833806ba|8cf47482-19f1-1f52-25ba-910a60bc91de"},"config":{"loop":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536794104399},"e-20":{"id":"e-20","eventTypeId":"PAGE_FINISH","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-4","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-19"}},"mediaQueries":["main","medium","small","tiny"],"target":{"appliesTo":"PAGE","styleBlockIds":[],"id":"662db00222965ffd833806ba"},"config":{"loop":false,"scrollOffsetValue":null,"scrollOffsetUnit":null,"delay":null,"direction":null,"effectIn":null},"createdOn":1536794461449},"e-21":{"id":"e-21","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-22"}},"mediaQueries":["main","medium","small","tiny"],"target":{"appliesTo":"ELEMENT","styleBlockIds":[],"id":"662db00222965ffd833806ba|321c18fb-db93-7e62-3afc-4dab2862f5d4"},"config":{"loop":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536795087519}},"actionLists":{"a-3":{"id":"a-3","title":"Scroll in view","actionItemGroups":[{"actionItems":[{"id":"a-3-n","actionTypeId":"TRANSFORM_MOVE","config":{"delay":0,"easing":"","duration":500,"target":{"useEventTarget":true,"id":"662db00222965ffd833806ba|cafe0045-d304-79d9-8f68-af3adaed06e9"},"yValue":40,"xUnit":"PX","yUnit":"PX","zUnit":"PX"}},{"id":"a-3-n-2","actionTypeId":"STYLE_OPACITY","config":{"delay":0,"easing":"","duration":500,"target":{"useEventTarget":true,"id":"662db00222965ffd833806ba|cafe0045-d304-79d9-8f68-af3adaed06e9"},"value":0,"unit":""}}]},{"actionItems":[{"id":"a-3-n-3","actionTypeId":"TRANSFORM_MOVE","config":{"delay":0,"easing":"outExpo","duration":1500,"target":{"useEventTarget":true,"id":"662db00222965ffd833806ba|cafe0045-d304-79d9-8f68-af3adaed06e9"},"yValue":0,"xUnit":"PX","yUnit":"PX","zUnit":"PX"}},{"id":"a-3-n-4","actionTypeId":"STYLE_OPACITY","config":{"delay":0,"easing":"outExpo","duration":1500,"target":{"useEventTarget":true,"id":"662db00222965ffd833806ba|cafe0045-d304-79d9-8f68-af3adaed06e9"},"value":1,"unit":""}}]}],"createdOn":1536793810154,"useFirstGroupAsInitialState":true},"a-4":{"id":"a-4","title":"Page load","actionItemGroups":[{"actionItems":[{"id":"a-4-n-5","actionTypeId":"TRANSFORM_MOVE","config":{"delay":0,"easing":"","duration":500,"target":{"id":"662db00222965ffd833806ba|77e69727-c455-8e07-0990-833a661c94ea"},"yValue":60,"xUnit":"PX","yUnit":"PX","zUnit":"PX"}},{"id":"a-4-n-6","actionTypeId":"STYLE_OPACITY","config":{"delay":0,"easing":"","duration":500,"target":{"id":"662db00222965ffd833806ba|77e69727-c455-8e07-0990-833a661c94ea"},"value":0,"unit":""}},{"id":"a-4-n","actionTypeId":"TRANSFORM_MOVE","config":{"delay":0,"easing":"","duration":500,"target":{"id":"662db00222965ffd833806ba|6b220cb1-4b9c-7fb0-75b9-53ff4a6c35a2"},"yValue":30,"xUnit":"PX","yUnit":"PX","zUnit":"PX"}},{"id":"a-4-n-2","actionTypeId":"STYLE_OPACITY","config":{"delay":0,"easing":"","duration":500,"target":{"id":"662db00222965ffd833806ba|6b220cb1-4b9c-7fb0-75b9-53ff4a6c35a2"},"value":0,"unit":""}}]},{"actionItems":[{"id":"a-4-n-4","actionTypeId":"STYLE_OPACITY","config":{"delay":250,"easing":"outExpo","duration":1500,"target":{"id":"662db00222965ffd833806ba|6b220cb1-4b9c-7fb0-75b9-53ff4a6c35a2"},"value":1,"unit":""}},{"id":"a-4-n-3","actionTypeId":"TRANSFORM_MOVE","config":{"delay":250,"easing":"outExpo","duration":1500,"target":{"id":"662db00222965ffd833806ba|6b220cb1-4b9c-7fb0-75b9-53ff4a6c35a2"},"yValue":0,"xUnit":"PX","yUnit":"PX","zUnit":"PX"}},{"id":"a-4-n-8","actionTypeId":"STYLE_OPACITY","config":{"delay":250,"easing":"outExpo","duration":3000,"target":{"id":"662db00222965ffd833806ba|77e69727-c455-8e07-0990-833a661c94ea"},"value":1,"unit":""}},{"id":"a-4-n-7","actionTypeId":"TRANSFORM_MOVE","config":{"delay":250,"easing":"outExpo","duration":3000,"target":{"id":"662db00222965ffd833806ba|77e69727-c455-8e07-0990-833a661c94ea"},"yValue":0,"xUnit":"PX","yUnit":"PX","zUnit":"PX"}}]}],"createdOn":1536794726643,"useFirstGroupAsInitialState":true}},"site":{"mediaQueries":[{"key":"main","min":992,"max":10000},{"key":"medium","min":768,"max":991},{"key":"small","min":480,"max":767},{"key":"tiny","min":0,"max":479}]}}
+{"events":{"e":{"id":"e","animationType":"custom","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-2"}},"mediaQueries":["main","medium","small","tiny"],"target":{"id":"662db00222965ffd833806ba|cafe0045-d304-79d9-8f68-af3adaed06e9","appliesTo":"ELEMENT","styleBlockIds":[]},"targets":[{"id":"662db00222965ffd833806ba|cafe0045-d304-79d9-8f68-af3adaed06e9","appliesTo":"ELEMENT","styleBlockIds":[]}],"config":{"loop":false,"playInReverse":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536793802829},"e-3":{"id":"e-3","animationType":"custom","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-4"}},"mediaQueries":["main","medium","small","tiny"],"target":{"id":"662db00222965ffd833806ba|88086931-0bbf-a2f5-1fc3-58d79ba19b7e","appliesTo":"ELEMENT","styleBlockIds":[]},"targets":[{"id":"662db00222965ffd833806ba|88086931-0bbf-a2f5-1fc3-58d79ba19b7e","appliesTo":"ELEMENT","styleBlockIds":[]}],"config":{"loop":false,"playInReverse":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536793894111},"e-5":{"id":"e-5","animationType":"custom","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-6"}},"mediaQueries":["main","medium","small","tiny"],"target":{"id":"662db00222965ffd833806ba|4593c4b7-56e8-060a-be57-648b0e08fc65","appliesTo":"ELEMENT","styleBlockIds":[]},"targets":[{"id":"662db00222965ffd833806ba|4593c4b7-56e8-060a-be57-648b0e08fc65","appliesTo":"ELEMENT","styleBlockIds":[]}],"config":{"loop":false,"playInReverse":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536794011541},"e-7":{"id":"e-7","animationType":"custom","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-8"}},"mediaQueries":["main","medium","small","tiny"],"target":{"id":"662db00222965ffd833806ba|d79d0682-95d0-be91-6539-b82f492963f4","appliesTo":"ELEMENT","styleBlockIds":[]},"targets":[{"id":"662db00222965ffd833806ba|d79d0682-95d0-be91-6539-b82f492963f4","appliesTo":"ELEMENT","styleBlockIds":[]}],"config":{"loop":false,"playInReverse":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536794026102},"e-9":{"id":"e-9","animationType":"custom","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-10"}},"mediaQueries":["main","medium","small","tiny"],"target":{"id":"662db00222965ffd833806ba|0585a81c-ee42-8b56-bc8e-bd582946320a","appliesTo":"ELEMENT","styleBlockIds":[]},"targets":[{"id":"662db00222965ffd833806ba|0585a81c-ee42-8b56-bc8e-bd582946320a","appliesTo":"ELEMENT","styleBlockIds":[]}],"config":{"loop":false,"playInReverse":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536794034018},"e-11":{"id":"e-11","animationType":"custom","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-12"}},"mediaQueries":["main","medium","small","tiny"],"target":{"id":"662db00222965ffd833806ba|23f92271-dba9-fb12-00d3-758ef4d10fb2","appliesTo":"ELEMENT","styleBlockIds":[]},"targets":[{"id":"662db00222965ffd833806ba|23f92271-dba9-fb12-00d3-758ef4d10fb2","appliesTo":"ELEMENT","styleBlockIds":[]}],"config":{"loop":false,"playInReverse":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536794055044},"e-13":{"id":"e-13","animationType":"custom","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-14"}},"mediaQueries":["main","medium","small","tiny"],"target":{"id":"662db00222965ffd833806ba|b126983d-9126-fc06-c81d-1318685e2add","appliesTo":"ELEMENT","styleBlockIds":[]},"targets":[{"id":"662db00222965ffd833806ba|b126983d-9126-fc06-c81d-1318685e2add","appliesTo":"ELEMENT","styleBlockIds":[]}],"config":{"loop":false,"playInReverse":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536794067483},"e-15":{"id":"e-15","animationType":"custom","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-16"}},"mediaQueries":["main","medium","small","tiny"],"target":{"id":"662db00222965ffd833806ba|376e2a1f-ec70-0dab-11ea-b1863101e37b","appliesTo":"ELEMENT","styleBlockIds":[]},"targets":[{"id":"662db00222965ffd833806ba|376e2a1f-ec70-0dab-11ea-b1863101e37b","appliesTo":"ELEMENT","styleBlockIds":[]}],"config":{"loop":false,"playInReverse":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536794094344},"e-17":{"id":"e-17","animationType":"custom","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-18"}},"mediaQueries":["main","medium","small","tiny"],"target":{"id":"662db00222965ffd833806ba|8cf47482-19f1-1f52-25ba-910a60bc91de","appliesTo":"ELEMENT","styleBlockIds":[]},"targets":[{"id":"662db00222965ffd833806ba|8cf47482-19f1-1f52-25ba-910a60bc91de","appliesTo":"ELEMENT","styleBlockIds":[]}],"config":{"loop":false,"playInReverse":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536794104399},"e-20":{"id":"e-20","animationType":"custom","eventTypeId":"PAGE_FINISH","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-4","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-19"}},"mediaQueries":["main","medium","small","tiny"],"target":{"id":"662db00222965ffd833806ba","appliesTo":"PAGE","styleBlockIds":[]},"targets":[{"id":"662db00222965ffd833806ba","appliesTo":"PAGE","styleBlockIds":[]}],"config":{"loop":false,"playInReverse":false,"scrollOffsetValue":null,"scrollOffsetUnit":null,"delay":null,"direction":null,"effectIn":null},"createdOn":1536794461449},"e-21":{"id":"e-21","animationType":"custom","eventTypeId":"SCROLL_INTO_VIEW","action":{"id":"","actionTypeId":"GENERAL_START_ACTION","config":{"delay":0,"easing":"","duration":0,"actionListId":"a-3","affectedElements":{},"playInReverse":false,"autoStopEventId":"e-22"}},"mediaQueries":["main","medium","small","tiny"],"target":{"id":"662db00222965ffd833806ba|321c18fb-db93-7e62-3afc-4dab2862f5d4","appliesTo":"ELEMENT","styleBlockIds":[]},"targets":[{"id":"662db00222965ffd833806ba|321c18fb-db93-7e62-3afc-4dab2862f5d4","appliesTo":"ELEMENT","styleBlockIds":[]}],"config":{"loop":false,"playInReverse":false,"scrollOffsetValue":40,"scrollOffsetUnit":"%","delay":null,"direction":null,"effectIn":null},"createdOn":1536795087519}},"actionLists":{"a-3":{"id":"a-3","title":"Scroll in view","actionItemGroups":[{"actionItems":[{"id":"a-3-n","actionTypeId":"TRANSFORM_MOVE","config":{"delay":0,"easing":"","duration":500,"target":{"useEventTarget":true,"id":"662db00222965ffd833806ba|cafe0045-d304-79d9-8f68-af3adaed06e9"},"yValue":40,"xUnit":"PX","yUnit":"PX","zUnit":"PX"}},{"id":"a-3-n-2","actionTypeId":"STYLE_OPACITY","config":{"delay":0,"easing":"","duration":500,"target":{"useEventTarget":true,"id":"662db00222965ffd833806ba|cafe0045-d304-79d9-8f68-af3adaed06e9"},"value":0,"unit":""}}]},{"actionItems":[{"id":"a-3-n-3","actionTypeId":"TRANSFORM_MOVE","config":{"delay":0,"easing":"outExpo","duration":1500,"target":{"useEventTarget":true,"id":"662db00222965ffd833806ba|cafe0045-d304-79d9-8f68-af3adaed06e9"},"yValue":0,"xUnit":"PX","yUnit":"PX","zUnit":"PX"}},{"id":"a-3-n-4","actionTypeId":"STYLE_OPACITY","config":{"delay":0,"easing":"outExpo","duration":1500,"target":{"useEventTarget":true,"id":"662db00222965ffd833806ba|cafe0045-d304-79d9-8f68-af3adaed06e9"},"value":1,"unit":""}}]}],"useFirstGroupAsInitialState":true,"createdOn":1536793810154},"a-4":{"id":"a-4","title":"Page load","actionItemGroups":[{"actionItems":[{"id":"a-4-n-5","actionTypeId":"TRANSFORM_MOVE","config":{"delay":0,"easing":"","duration":500,"target":{"id":"662db00222965ffd833806ba|77e69727-c455-8e07-0990-833a661c94ea"},"yValue":60,"xUnit":"PX","yUnit":"PX","zUnit":"PX"}},{"id":"a-4-n-6","actionTypeId":"STYLE_OPACITY","config":{"delay":0,"easing":"","duration":500,"target":{"id":"662db00222965ffd833806ba|77e69727-c455-8e07-0990-833a661c94ea"},"value":0,"unit":""}},{"id":"a-4-n","actionTypeId":"TRANSFORM_MOVE","config":{"delay":0,"easing":"","duration":500,"target":{"id":"662db00222965ffd833806ba|6b220cb1-4b9c-7fb0-75b9-53ff4a6c35a2"},"yValue":30,"xUnit":"PX","yUnit":"PX","zUnit":"PX"}},{"id":"a-4-n-2","actionTypeId":"STYLE_OPACITY","config":{"delay":0,"easing":"","duration":500,"target":{"id":"662db00222965ffd833806ba|6b220cb1-4b9c-7fb0-75b9-53ff4a6c35a2"},"value":0,"unit":""}}]},{"actionItems":[{"id":"a-4-n-4","actionTypeId":"STYLE_OPACITY","config":{"delay":250,"easing":"outExpo","duration":1500,"target":{"id":"662db00222965ffd833806ba|6b220cb1-4b9c-7fb0-75b9-53ff4a6c35a2"},"value":1,"unit":""}},{"id":"a-4-n-3","actionTypeId":"TRANSFORM_MOVE","config":{"delay":250,"easing":"outExpo","duration":1500,"target":{"id":"662db00222965ffd833806ba|6b220cb1-4b9c-7fb0-75b9-53ff4a6c35a2"},"yValue":0,"xUnit":"PX","yUnit":"PX","zUnit":"PX"}},{"id":"a-4-n-8","actionTypeId":"STYLE_OPACITY","config":{"delay":250,"easing":"outExpo","duration":3000,"target":{"id":"662db00222965ffd833806ba|77e69727-c455-8e07-0990-833a661c94ea"},"value":1,"unit":""}},{"id":"a-4-n-7","actionTypeId":"TRANSFORM_MOVE","config":{"delay":250,"easing":"outExpo","duration":3000,"target":{"id":"662db00222965ffd833806ba|77e69727-c455-8e07-0990-833a661c94ea"},"yValue":0,"xUnit":"PX","yUnit":"PX","zUnit":"PX"}}]}],"useFirstGroupAsInitialState":true,"createdOn":1536794726643}},"site":{"mediaQueries":[{"key":"main","min":992,"max":10000},{"key":"medium","min":768,"max":991},{"key":"small","min":480,"max":767},{"key":"tiny","min":0,"max":479}]}}
 );

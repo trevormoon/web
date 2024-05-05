@@ -1,6 +1,6 @@
 :root {
-  --white: white;
   --black: black;
+  --white: white;
   --blue-violet: #6e2ed8;
   --dim-grey: #6b6b6b;
   --663399: #602bb6;
@@ -67,8 +67,9 @@ a {
 }
 
 .section.center {
-  background-color: #cf0063;
-  background-image: linear-gradient(135deg, #dd1173, #350e47);
+  -webkit-text-fill-color: inherit;
+  background-color: #ffe7f3;
+  background-clip: border-box;
   justify-content: center;
   align-items: flex-start;
   height: 100vh;
@@ -288,13 +289,15 @@ a {
 }
 
 .button {
-  color: #fff;
+  color: #000;
   text-align: center;
-  background-color: #fc0a7e;
+  background-color: #c24958;
   border-radius: 3px;
   margin-right: 0;
   padding: 20px 40px;
+  font-family: Bmhannaair Otf, sans-serif;
   font-size: 16px;
+  font-style: normal;
   font-weight: 600;
   line-height: 26px;
   transition: background-color .5s cubic-bezier(.789, .159, .25, 1), color .2s cubic-bezier(.789, .159, .25, 1);
@@ -427,7 +430,6 @@ a {
 
 .wrapper.welcome {
   z-index: 90;
-  max-width: auto;
   align-items: flex-start;
   width: 100vw;
   position: relative;
@@ -626,6 +628,8 @@ a {
 }
 
 .hero-image {
+  background-image: none;
+  background-size: auto;
   height: 85vh;
   position: absolute;
   bottom: 0;
@@ -691,8 +695,9 @@ a {
 }
 
 .hero-subhead {
-  color: #fff;
+  color: #000;
   max-width: 60%;
+  font-family: Bmhannaprootf, sans-serif;
   font-size: 30px;
   line-height: 44px;
 }
@@ -866,6 +871,11 @@ a {
 .image-licensing-wrap {
   flex: 1;
   max-width: 600px;
+}
+
+.heading-3 {
+  color: var(--black);
+  font-family: Bmhannaprootf, sans-serif;
 }
 
 @media screen and (max-width: 991px) {
@@ -1179,3 +1189,59 @@ a {
 }
 
 
+@font-face {
+  font-family: 'Bmkiranghaerang Otf';
+  src: url('../fonts/BMKIRANGHAERANG-OTF.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bmjua Otf';
+  src: url('../fonts/BMJUA_otf.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bmhannaair Otf';
+  src: url('../fonts/BMHANNAAir_otf.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bmhanna 11 Yrs Otf';
+  src: url('../fonts/BMHANNA_11yrs_otf.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bmdohyeon Otf';
+  src: url('../fonts/BMDOHYEON_otf.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bmhannaprootf';
+  src: url('../fonts/BMHANNAProOTF.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bmyeonsung Otf';
+  src: url('../fonts/BMYEONSUNG_otf.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bmeuljiro';
+  src: url('../fonts/BMEULJIRO.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
